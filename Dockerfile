@@ -1,4 +1,4 @@
-FROM python:3-slim-bullseye AS builder
+FROM python:3.12-slim-bullseye AS builder
 ADD . /app
 WORKDIR /app
 
@@ -7,7 +7,7 @@ RUN pip install --target=/app pygithub==1.54.1 jira==3.0.1 actions-toolkit==0.1.
 
 # A distroless container image with Python and some basics like SSL certificates
 # https://github.com/GoogleContainerTools/distroless
-FROM python:3-slim-bullseye
+FROM python:3.12-slim-bullseye
 COPY --from=builder /app /app
 WORKDIR /app
 ENV PYTHONPATH /app
