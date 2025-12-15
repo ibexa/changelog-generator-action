@@ -3,7 +3,7 @@ import re
 
 from github import Github
 
-JIRA_PREFIX = "https://issues.ibexa.co/browse/"
+JIRA_PREFIX = "https://ibexa.atlassian.net/browse/"
 
 
 # TODO: Make sure that we can categorize commits based on JIRA type
