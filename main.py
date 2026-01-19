@@ -6,7 +6,7 @@ from github import Github, UnknownObjectException
 from jira import JIRA, JIRAError
 from actions_toolkit import core as gha
 
-JIRA_SERVER = "https://issues.ibexa.co"
+JIRA_SERVER = "https://ibexa.atlassian.net"
 JIRA_PREFIX = f"{JIRA_SERVER}/browse/"
 
 
