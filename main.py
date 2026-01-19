@@ -94,9 +94,10 @@ def main():
 
     github = Github(os.environ["INPUT_GITHUB_TOKEN"])
     jira_token = os.getenv("INPUT_JIRA_TOKEN", "")
+    jira_email = os.getenv("INPUT_JIRA_EMAIL", "")
     jira = JIRA(
         JIRA_SERVER,
-        options={"headers": {"Authorization": f"Bearer {jira_token}"}},
+        basic_auth=(jira_email, jira_token)
     )
 
     repo_name = os.environ["GITHUB_REPOSITORY"]

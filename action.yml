@@ -13,6 +13,10 @@ inputs:
   jira_token:
     required: true
     description: "JIRA token to use to talk to JIRA"
+  jira_email:
+    required: false
+    default: "alicja.orzel@ibexa.co"
+    description: "JIRA email to use to talk to JIRA"
 outputs:
   changelog:
     description: "Changelog output"
