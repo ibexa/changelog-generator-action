@@ -2,7 +2,7 @@ import os
 import re
 import sys
 
-from github import Github, UnknownObjectException
+from github import Github, UnknownObjectException, Auth
 from jira import JIRA, JIRAError
 from actions_toolkit import core as gha
 
@@ -92,7 +92,7 @@ def main():
     current_tag = os.environ["INPUT_CURRENTTAG"]
     previous_tag = os.environ["INPUT_PREVIOUSTAG"]
 
-    github = Github(os.environ["INPUT_GITHUB_TOKEN"])
+    github = Github(auth=Auth.Token(os.environ["INPUT_GITHUB_TOKEN"]))
     jira_token = os.getenv("INPUT_JIRA_TOKEN", "")
     jira_email = os.getenv("INPUT_JIRA_EMAIL", "")
     jira = JIRA(
