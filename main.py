@@ -2,9 +2,9 @@ import os
 import re
 import sys
 
-from github import Github, UnknownObjectException
+from github import Github, UnknownObjectException, Auth
 from jira import JIRA, JIRAError
-from github_action_utils import set_output
+from actions_toolkit import core as gha
 
 JIRA_SERVER = "https://ibexa.atlassian.net"
 JIRA_PREFIX = f"{JIRA_SERVER}/browse/"
@@ -92,11 +92,12 @@ def main():
     current_tag = os.environ["INPUT_CURRENTTAG"]
     previous_tag = os.environ["INPUT_PREVIOUSTAG"]
 
-    github = Github(os.environ["INPUT_GITHUB_TOKEN"])
+    github = Github(auth=Auth.Token(os.environ["INPUT_GITHUB_TOKEN"]))
     jira_token = os.getenv("INPUT_JIRA_TOKEN", "")
+    jira_email = os.getenv("INPUT_JIRA_EMAIL", "")
     jira = JIRA(
         JIRA_SERVER,
-        options={"headers": {"Authorization": f"Bearer {jira_token}"}},
+        basic_auth=(jira_email, jira_token)
     )
 
     repo_name = os.environ["GITHUB_REPOSITORY"]
@@ -158,7 +159,7 @@ def main():
     if bare_output:
         print(messages)
     else:
-        print(f"::set-output name=changelog::{prepare_output(messages)}")
+        gha.set_output("changelog", messages)
 
 
 if __name__ == "__main__":
