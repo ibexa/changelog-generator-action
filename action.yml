@@ -15,4 +15,4 @@ outputs:
     description: "Changelog output"
 runs:
   using: "docker"
-  image: "docker://ghcr.io/ibexa-yuna/changelog-generator-action:v1.0.0"
+  image: "Dockerfile"

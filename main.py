@@ -37,8 +37,10 @@ def add_pr_links(message, repo_name):
     return message
 
 
-def prepare_output(txt):
-    return txt.replace("\n", "%0A")
+def set_github_output(name, value):
+    delimiter = "GITHUB_OUTPUT_DELIMITER"
+    with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+        f.write(f"{name}<<{delimiter}\n{value}\n{delimiter}\n")
 
 
 def generate_header(repo_name, previous_tag, current_tag):
@@ -72,15 +74,12 @@ def main():
 
     header = generate_header(repo_name, previous_tag, current_tag)
 
-    # %0A is a replacement of \n in github actions output,
-    # so that multiline output is parsed properly
-    # This is why we invoke prepare_output(): replace all \n with %0A
     messages = header + "\n".join(map(str, messages_data))
 
     if bare_output:
         print(messages)
     else:
-        print(f"::set-output name=changelog::{prepare_output(messages)}")
+        set_github_output("changelog", messages)
 
 
 if __name__ == "__main__":
