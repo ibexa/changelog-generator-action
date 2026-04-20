@@ -1,5 +1,6 @@
 import os
 import re
+import uuid
 
 from github import Github
 
@@ -38,7 +39,7 @@ def add_pr_links(message, repo_name):
 
 
 def set_github_output(name, value):
-    delimiter = "GITHUB_OUTPUT_DELIMITER"
+    delimiter = f"ghadelimiter_{uuid.uuid4()}"
     with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
         f.write(f"{name}<<{delimiter}\n{value}\n{delimiter}\n")
 
