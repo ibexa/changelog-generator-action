@@ -8,6 +8,7 @@ from actions_toolkit import core as gha
 
 JIRA_SERVER = "https://ibexa.atlassian.net"
 JIRA_PREFIX = f"{JIRA_SERVER}/browse/"
+ISSUE_PUBLIC_LINK_PREFIX = "https://issues.support.ibexa.co/issue/"
 
 
 def format_messages(message, repo_name, jira):
@@ -39,7 +40,7 @@ def is_bug(issue):
 
 def add_jira_links(message, jira):
     regex = r"^((?!([A-Z0-9a-z]{1,10})-?$)[A-Z]{1}[A-Z0-9]+-\d+)"
-    subst = f"[\\1]({JIRA_PREFIX}\\1)"
+    subst = f"[\\1]({ISSUE_PUBLIC_LINK_PREFIX}\\1)"
     result = re.sub(regex, subst, message, 0, re.MULTILINE)
     jira_ids = re.findall(regex, message)
     if jira_ids:
